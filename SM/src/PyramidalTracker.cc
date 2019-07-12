@@ -134,7 +134,7 @@ void PyramidalTracker::showImagePyramid(){
 	for(int pyr_level = 1; pyr_level < params.no_of_levels; ++pyr_level){
 		cv::Mat curr_level_img(img_sizes[pyr_level], CV_8UC3);
 		img_pyramid[pyr_level].convertTo(curr_level_img, curr_level_img.type());
-		cv::cvtColor(curr_level_img, curr_level_img, CV_GRAY2BGR);
+		cv::cvtColor(curr_level_img, curr_level_img, cv::COLOR_GRAY2BGR);
 		cv::Scalar line_color(255, 0, 0);
 		cv_corners_mat = trackers[pyr_level]->getRegion();
 		cv::Point2d ul(cv_corners_mat.at<double>(0, 0), cv_corners_mat.at<double>(1, 0));

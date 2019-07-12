@@ -360,10 +360,10 @@ int	Translation::estimateTranslation(const CvMat* in_pts, const CvMat* out_pts,
 	CV_Assert(n_pts >= params.n_model_pts);
 
 	out_pts_hm = cvCreateMat(1, n_pts, CV_64FC2);
-	cvConvertPointsHomogeneous(out_pts, out_pts_hm);
+	cv::convertPointsHomogeneous(cv::cvarrToMat(out_pts), cv::cvarrToMat(out_pts_hm));
 
 	in_pts_hm = cvCreateMat(1, n_pts, CV_64FC2);
-	cvConvertPointsHomogeneous(in_pts, in_pts_hm);
+	cv::convertPointsHomogeneous(cv::cvarrToMat(in_pts), cv::cvarrToMat(in_pts_hm));
 
 	if(mask) {
 		CV_Assert(CV_IS_MASK_ARR(mask) && CV_IS_MAT_CONT(mask->type) &&

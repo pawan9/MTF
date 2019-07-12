@@ -387,7 +387,7 @@ int main(int argc, char * argv[]) {
 			std::string record_frames_path = cv::format("%s/%s.avi", 
 				record_frames_dir.c_str(), record_frames_fname.c_str());
 			printf("Recording tracking video to: %s\n", record_frames_path.c_str());
-			output.open(record_frames_path, CV_FOURCC('M', 'J', 'P', 'G'), 24, input->getFrame().size());
+			output.open(record_frames_path, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), 24, input->getFrame().size());
 			if(!output.isOpened()) {
 				printf("Tracking video file could not be opened.\n");
 				return EXIT_FAILURE;

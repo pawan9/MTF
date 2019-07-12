@@ -449,11 +449,11 @@ int	ASRT::estimateASRT(const CvMat* in_pts, const CvMat* out_pts,
 	int n_pts = MAX(out_pts->cols, out_pts->rows);
 	CV_Assert(n_pts >= params.n_model_pts);
 
-	out_pts_hm = cvCreateMat(1, n_pts, CV_64FC2);
-	cvConvertPointsHomogeneous(out_pts, out_pts_hm);
+	out_pts_hm = cvCreateMat(1, n_pts, CV_64FC2);	
+	cv::convertPointsHomogeneous(cv::cvarrToMat(out_pts), cv::cvarrToMat(out_pts_hm));
 
-	in_pts_hm = cvCreateMat(1, n_pts, CV_64FC2);
-	cvConvertPointsHomogeneous(in_pts, in_pts_hm);
+	in_pts_hm = cvCreateMat(1, n_pts, CV_64FC2);	
+	cv::convertPointsHomogeneous(cv::cvarrToMat(in_pts), cv::cvarrToMat(in_pts_hm));
 
 	if(mask) {
 		CV_Assert(CV_IS_MASK_ARR(mask) && CV_IS_MAT_CONT(mask->type) &&
@@ -469,10 +469,10 @@ int	ASRT::estimateASRT(const CvMat* in_pts, const CvMat* out_pts,
 
 	int method = n_pts == params.n_model_pts ? 0 : params.method_cv;
 
-	if(method == CV_LMEDS)
+	if(method == cv::LMEDS)
 		result = estimator.runLMeDS(in_pts_hm, out_pts_hm, &matH, tempMask, params.confidence,
 		params.max_iters, params.max_subset_attempts);
-	else if(method == CV_RANSAC)
+	else if(method == cv::RANSAC)
 		result = estimator.runRANSAC(in_pts_hm, out_pts_hm, &matH, tempMask, params.ransac_reproj_thresh,
 		params.confidence, params.max_iters, params.max_subset_attempts);
 	else
@@ -482,7 +482,7 @@ int	ASRT::estimateASRT(const CvMat* in_pts, const CvMat* out_pts,
 		utils::icvCompressPoints((CvPoint2D64f*)in_pts_hm->data.ptr, tempMask->data.ptr, 1, n_pts);
 		n_pts = utils::icvCompressPoints((CvPoint2D64f*)out_pts_hm->data.ptr, tempMask->data.ptr, 1, n_pts);
 		in_pts_hm->cols = out_pts_hm->cols = n_pts;
-		if(method == CV_RANSAC)
+		if(method == cv::RANSAC)
 			estimator.runKernel(in_pts_hm, out_pts_hm, &matH);
 		if(params.refine){
 			estimator.refine(in_pts_hm, out_pts_hm, &matH, params.lm_max_iters);

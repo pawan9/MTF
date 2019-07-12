@@ -278,7 +278,7 @@ void PGB::showSubRegions(double *patch_data){
 	cv::Mat patch_img(resy, resx, CV_8UC1);
 	cv::Mat(resy, resx, CV_64FC1, patch_data).convertTo(patch_img, patch_img.type());
 	cv::Mat patch_img_rgb(resy, resx, CV_8UC3);
-	cv::cvtColor(patch_img, patch_img_rgb, CV_GRAY2BGR);
+	cv::cvtColor(patch_img, patch_img_rgb, cv::COLOR_GRAY2BGR);
 
 	cv::Scalar region_cols[8] = {
 		cv::Scalar(0, 0, 255),
@@ -303,10 +303,10 @@ void PGB::showSubRegions(double *patch_data){
 		cv::Point ll(min_x, max_y);
 		cv::Point centroid = (ul + ur + lr + ll)*0.25;
 
-		cv::line(patch_img_rgb, ul, ur, region_cols[col_id], 1, CV_AA);
-		cv::line(patch_img_rgb, ur, lr, region_cols[col_id], 1, CV_AA);
-		cv::line(patch_img_rgb, lr, ll, region_cols[col_id], 1, CV_AA);
-		cv::line(patch_img_rgb, ll, ul, region_cols[col_id], 1, CV_AA);
+		cv::line(patch_img_rgb, ul, ur, region_cols[col_id], 1, cv::LINE_AA);
+		cv::line(patch_img_rgb, ur, lr, region_cols[col_id], 1, cv::LINE_AA);
+		cv::line(patch_img_rgb, lr, ll, region_cols[col_id], 1, cv::LINE_AA);
+		cv::line(patch_img_rgb, ll, ul, region_cols[col_id], 1, cv::LINE_AA);
 
 		putText(patch_img_rgb, cv::format("%d", region_id), centroid,
 			cv::FONT_HERSHEY_SIMPLEX, 0.50, region_cols[col_id]);

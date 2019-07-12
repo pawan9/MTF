@@ -144,7 +144,7 @@ int main(int argc, char * argv[]) {
 		n_channels = 1;
 		//! first frame in the synthetic sequence is the grayscale version of the original image 
 		out_img.create(input->getHeight(), input->getWidth(), CV_8UC1);
-		cv::cvtColor(input->getFrame(), out_img, CV_BGR2GRAY);
+		cv::cvtColor(input->getFrame(), out_img, cv::COLOR_BGR2GRAY);
 	} else{
 		printf("Generating RGB images\n");
 		out_img_type = CV_8UC3;
@@ -159,7 +159,7 @@ int main(int argc, char * argv[]) {
 	if(reg_save_as_video){
 		std::string out_file = cv::format("%s.avi", out_dir.c_str());
 		printf("Saving output to MJPG video file: %s with %d fps\n", out_file.c_str(), reg_video_fps);
-		output.open(out_file, CV_FOURCC('M', 'J', 'P', 'G'), reg_video_fps, input->getFrame().size());
+		output.open(out_file, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), reg_video_fps, input->getFrame().size());
 		output.write(out_img);
 	} else{
 		//! for OpenCV imwrite function

@@ -31,9 +31,9 @@ int SSMEstimatorParams::toCV(EstType est_type){
 	case EstType::LeastSquares:
 		return 0;
 	case EstType::RANSAC:
-		return CV_RANSAC;
+		return cv::RANSAC;
 	case EstType::LeastMedian:
-		return CV_LMEDS;
+		return cv::LMEDS;
 	default:
 		throw utils::InvalidArgument("Invalid estimation method specified");
 	}

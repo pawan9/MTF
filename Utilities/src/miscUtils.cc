@@ -1,7 +1,7 @@
 #include "mtf/Utilities/miscUtils.h"
 #include "mtf/Utilities/excpUtils.h"
 #include "opencv2/highgui/highgui.hpp"
-#if CV_MAJOR_VERSION == 3
+#if CV_MAJOR_VERSION >= 3
 #include "opencv2/imgproc/imgproc.hpp"
 #endif
 #ifndef DISABLE_VISP
@@ -175,7 +175,7 @@ namespace utils{
 		for(int vert_id = 0; vert_id < vertices.cols; ++vert_id) {
 			vertices_p2d[vert_id] = cv::Point2d(vertices.at<double>(0, vert_id), vertices.at<double>(1, vert_id));
 		}
-		if(line_type == 0){ line_type = CV_AA; }
+		if(line_type == 0){ line_type = cv::LINE_AA; }
 		for(int vert_id = 0; vert_id < vertices.cols; ++vert_id) {
 			cv::line(img, vertices_p2d[vert_id], vertices_p2d[(vert_id + 1) % vertices.cols],
 				col, line_thickness, line_type);
@@ -383,8 +383,8 @@ namespace utils{
 
 		cv::Mat gt_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
 		cv::Mat tracker_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
-		fillConvexPoly(gt_img, gt_corners_int, 4, cv::Scalar(255), CV_AA);
-		fillConvexPoly(tracker_img, tracker_corners_int, 4, cv::Scalar(255), CV_AA);
+		fillConvexPoly(gt_img, gt_corners_int, 4, cv::Scalar(255), cv::LINE_AA);
+		fillConvexPoly(tracker_img, tracker_corners_int, 4, cv::Scalar(255), cv::LINE_AA);
 
 		cv::Mat intersection_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
 		cv::Mat union_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
@@ -417,8 +417,8 @@ namespace utils{
 		Corners(tracker_corners).points(tracker_corners_int);
 		cv::Mat gt_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
 		cv::Mat tracker_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
-		fillConvexPoly(gt_img, gt_corners_int, 4, cv::Scalar(255), CV_AA);
-		fillConvexPoly(tracker_img, tracker_corners_int, 4, cv::Scalar(255), CV_AA);
+		fillConvexPoly(gt_img, gt_corners_int, 4, cv::Scalar(255), cv::LINE_AA);
+		fillConvexPoly(tracker_img, tracker_corners_int, 4, cv::Scalar(255), cv::LINE_AA);
 		cv::Mat intersection_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
 		cv::Mat union_img(img_height, img_width, CV_8UC1, cv::Scalar(0));
 		cv::bitwise_and(gt_img, tracker_img, intersection_img);
@@ -536,7 +536,7 @@ namespace utils{
 	}
 	cv::Point2d getCentroid(const cv::Mat &corners){
 		cv::Mat centroid;
-		cv::reduce(corners, centroid, 1, CV_REDUCE_AVG);
+		cv::reduce(corners, centroid, 1, cv::ReduceTypes::REDUCE_AVG);
 		//printMatrix<double>(corners, "getCentroid :: corners");
 		//printMatrix<double>(centroid, "getCentroid :: centroid");
 		return cv::Point2d(centroid.at<double>(0, 0), centroid.at<double>(1, 0));

@@ -257,7 +257,7 @@ namespace nt{
 	}
 	void FALK::drawGrid(){
 		am->getCurrImg().convertTo(curr_img_uchar, curr_img_uchar.type());
-		cv::cvtColor(curr_img_uchar, curr_img_uchar, CV_GRAY2BGR);
+		cv::cvtColor(curr_img_uchar, curr_img_uchar, cv::COLOR_GRAY2BGR);
 		utils::drawGrid(curr_img_uchar, ssm->getPts(), am->getResX(), am->getResY());
 		if(params.show_patch){
 			am->extractPatch(curr_patch_eig, ssm->getPts());

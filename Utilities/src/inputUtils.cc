@@ -54,18 +54,20 @@ namespace utils{
 			dev_path = _params->dev_path;
 			n_buffers = _params->n_buffers;
 			invert_seq = _params->invert_seq;
+			video_path = _params->video_path;
 		}
 		setDefaults();
 	}
 
 	InputParams::InputParams(char _img_source, string _dev_name, string _dev_fmt,
-		string _dev_path, int _n_buffers, bool _invert_seq) :
+		string _dev_path, int _n_buffers, bool _invert_seq, string _video_path) :
 		img_source(_img_source), 
 		dev_name(_dev_name), 
 		dev_fmt(_dev_fmt),
 		dev_path(_dev_path), 
 		n_buffers(_n_buffers), 
-		invert_seq(_invert_seq){
+		invert_seq(_invert_seq),
+		video_path(_video_path){
 		setDefaults();
 	}
 	void InputParams::setDefaults(){
@@ -80,15 +82,23 @@ namespace utils{
 
 	InputBase::InputBase(const InputParams *_params) : destroy(false), n_frames(0), frame_id(0){
 		InputParams params(_params);
-		//printf("InputBase :: img_source: %c\n", img_source);
+		printf("InputBase :: img_source: %c\n", params.img_source);
+		printf("InputBase Video Path: %s\n", params.video_path);
 
-		if(params.img_source == SRC_VID){
-			file_path = params.dev_path + "/" + params.dev_name + "." + params.dev_fmt;
+		if(params.img_source == SRC_VID){			
+			if (params.video_path != "") {
+				file_path = params.video_path;
+			}
+			else {
+				file_path = params.dev_path + "/" + params.dev_name + "." + params.dev_fmt;
+			}			
 			if(!fs::exists(file_path)){
 				throw mtf::utils::InvalidArgument(
 					cv::format("InputBase :: Video file %s does not exist", file_path.c_str()));
 			}
-			n_frames = getNumberOfVideoFrames(file_path.c_str());
+			if (params.video_path.empty()) {
+				n_frames = getNumberOfVideoFrames(file_path.c_str());
+			}
 		} else if(params.img_source == SRC_IMG || params.img_source == SRC_DISK){
 			std::string img_folder_path = params.dev_path + "/" + params.dev_name;
 			if(!fs::exists(img_folder_path)){
@@ -184,8 +194,8 @@ namespace utils{
 		//img_height=temp_frame.rows;
 		//img_width=temp_frame.cols;
 
-		img_height = static_cast<int>(cap_obj.get(CV_CAP_PROP_FRAME_HEIGHT));
-		img_width = static_cast<int>(cap_obj.get(CV_CAP_PROP_FRAME_WIDTH));
+		img_height = static_cast<int>(cap_obj.get(cv::CAP_PROP_FRAME_HEIGHT));
+		img_width = static_cast<int>(cap_obj.get(cv::CAP_PROP_FRAME_WIDTH));
 
 		/*img_height=cap_obj.get(CV_CAP_PROP_FRAME_HEIGHT);
 		img_width=cap_obj.get(CV_CAP_PROP_FRAME_WIDTH);*/

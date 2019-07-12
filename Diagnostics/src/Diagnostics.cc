@@ -2,7 +2,7 @@
 #include "mtf/Utilities/miscUtils.h"
 #include <time.h>
 #include <stdexcept>
-#if CV_MAJOR_VERSION == 3
+#if CV_MAJOR_VERSION >= 3
 #include "opencv2/imgproc/imgproc.hpp"
 #endif
 
@@ -393,10 +393,10 @@ const char*  Diagnostics::toString(NDT data_type){
 void Diagnostics::drawCurrCorners(cv::Mat &img, int state_id, 
 	int thickness, bool write_text, cv::Scalar corners_col){
 	ssm->getCorners(curr_corners_cv);
-	line(img, curr_corners_cv[0], curr_corners_cv[1], corners_col, thickness, CV_AA);
-	line(img, curr_corners_cv[1], curr_corners_cv[2], corners_col, thickness, CV_AA);
-	line(img, curr_corners_cv[2], curr_corners_cv[3], corners_col, thickness, CV_AA);
-	line(img, curr_corners_cv[3], curr_corners_cv[0], corners_col, thickness, CV_AA);
+	line(img, curr_corners_cv[0], curr_corners_cv[1], corners_col, thickness, cv::LINE_AA);
+	line(img, curr_corners_cv[1], curr_corners_cv[2], corners_col, thickness, cv::LINE_AA);
+	line(img, curr_corners_cv[2], curr_corners_cv[3], corners_col, thickness, cv::LINE_AA);
+	line(img, curr_corners_cv[3], curr_corners_cv[0], corners_col, thickness, cv::LINE_AA);
 	if(write_text && state_id >= 0){
 		stringstream state_id_txt;
 		state_id_txt << "state param: " << state_id;

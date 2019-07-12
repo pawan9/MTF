@@ -394,7 +394,7 @@ void GridTracker<SSM>::resetTrackers(bool reinit){
 template<class SSM>
 void GridTracker<SSM>::showTrackers(){
 	curr_img.convertTo(curr_img_disp, curr_img_disp.type());
-	cv::cvtColor(curr_img_disp, curr_img_disp, CV_GRAY2BGR);
+	cv::cvtColor(curr_img_disp, curr_img_disp, cv::COLOR_GRAY2BGR);
 	utils::drawRegion(curr_img_disp, cv_corners_mat, CV_RGB(0, 0, 255), 2);
 	for(int tracker_id = 0; tracker_id < n_trackers; tracker_id++) {
 		cv::Scalar tracker_color;

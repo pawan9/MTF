@@ -177,10 +177,10 @@ int estimateHomography(const CvMat* objectPoints, const CvMat* imagePoints,
 	CV_Assert(n_pts >= params.n_model_pts);
 
 	m = cvCreateMat(1, n_pts, CV_64FC2);
-	cvConvertPointsHomogeneous(imagePoints, m);
+	cv::convertPointsHomogeneous(cv::cvarrToMat(imagePoints), cv::cvarrToMat(m));
 
 	M = cvCreateMat(1, n_pts, CV_64FC2);
-	cvConvertPointsHomogeneous(objectPoints, M);
+	cv::convertPointsHomogeneous(cv::cvarrToMat(objectPoints), cv::cvarrToMat(M));
 
 	if(mask){
 		CV_Assert(CV_IS_MASK_ARR(mask) && CV_IS_MAT_CONT(mask->type) &&
@@ -194,10 +194,10 @@ int estimateHomography(const CvMat* objectPoints, const CvMat* imagePoints,
 
 	HomographyEstimator estimator(params.n_model_pts, params.use_boost_rng);
 	int method = n_pts == params.n_model_pts ? 0 : params.method_cv;
-	if(method == CV_LMEDS)
+	if(method == cv::LMEDS)
 		result = estimator.runLMeDS(M, m, &matH, tempMask, params.confidence, 
 		params.max_iters, params.max_subset_attempts);
-	else if(method == CV_RANSAC)
+	else if(method == cv::RANSAC)
 		result = estimator.runRANSAC(M, m, &matH, tempMask, params.ransac_reproj_thresh,
 		params.confidence, params.max_iters, params.max_subset_attempts);
 	else
@@ -207,7 +207,7 @@ int estimateHomography(const CvMat* objectPoints, const CvMat* imagePoints,
 		utils::icvCompressPoints((CvPoint2D64f*)M->data.ptr, tempMask->data.ptr, 1, n_pts);
 		n_pts = utils::icvCompressPoints((CvPoint2D64f*)m->data.ptr, tempMask->data.ptr, 1, n_pts);
 		M->cols = m->cols = n_pts;
-		if(method == CV_RANSAC)
+		if(method == cv::RANSAC)
 			estimator.runKernel(M, m, &matH);
 		if(params.refine){
 			estimator.refine(M, m, &matH, params.lm_max_iters);

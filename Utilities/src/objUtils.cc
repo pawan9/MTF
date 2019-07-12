@@ -233,21 +233,21 @@ namespace utils{
 
 	inline void getClickedPoint(int mouse_event, int x, int y, int flags,
 		void* param) {
-		if(mouse_event == CV_EVENT_LBUTTONDOWN) {
+		if(mouse_event == cv::EVENT_LBUTTONDOWN) {
 			//cout<<"\nReceived a left click at "<<x<<"\t"<<y<<"\n";
 			mouse_click_point.x = x;
 			mouse_click_point.y = y;
 			left_button_clicked = true;
 			point_selected = true;
-		} else if(mouse_event == CV_EVENT_RBUTTONDOWN) {
+		} else if(mouse_event == cv::EVENT_RBUTTONDOWN) {
 			//cout<<"\nReceived a right click at "<<x<<"\t"<<y<<"\n";
 			point_selected = true;
 			right_button_clicked = true;
-		} else if(mouse_event == CV_EVENT_MBUTTONDOWN) {
+		} else if(mouse_event == cv::EVENT_MBUTTONDOWN) {
 			//cout<<"\nReceived a right click at "<<x<<"\t"<<y<<"\n";
 			point_selected = true;
 			middle_button_clicked = true;
-		} else if(mouse_event == CV_EVENT_MOUSEMOVE) {
+		} else if(mouse_event == cv::EVENT_MOUSEMOVE) {
 			mouse_hover_point.x = x;
 			mouse_hover_point.y = y;
 			mouse_hover_event = true;

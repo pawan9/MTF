@@ -307,7 +307,7 @@ void  LSCV::showSubRegions(const EigImgT& img, const Matrix2Xd& pts){
 	patch_img = cv::Mat(img.rows(), img.cols(), CV_32FC1, const_cast<float*>(img.data()));
 	patch_img_uchar.create(img.rows(), img.cols(), CV_8UC3);
 	patch_img.convertTo(patch_img_uchar, patch_img_uchar.type());
-	cv::cvtColor(patch_img_uchar, patch_img_uchar, CV_GRAY2BGR);
+	cv::cvtColor(patch_img_uchar, patch_img_uchar, cv::COLOR_GRAY2BGR);
 	cv::Scalar region_cols[8] = {
 		cv::Scalar(0, 0, 255),
 		cv::Scalar(0, 255, 0),

@@ -110,7 +110,7 @@ namespace utils{
 		case CV_32FC1:
 			if(rgb_input){
 				frame_raw.convertTo(frame_rgb, frame_rgb.type());
-				cv::cvtColor(frame_rgb, frame_gs, CV_BGR2GRAY);
+				cv::cvtColor(frame_rgb, frame_gs, cv::COLOR_BGR2GRAY);
 			} else{
 				frame_raw.convertTo(frame_gs, frame_gs.type());
 			}
@@ -127,7 +127,7 @@ namespace utils{
 			break;
 		case CV_8UC1:
 			if(rgb_input){
-				cv::cvtColor(frame_raw, frame_gs, CV_BGR2GRAY);
+				cv::cvtColor(frame_raw, frame_gs, cv::COLOR_BGR2GRAY);
 			} else{
 				frame_raw.copyTo(frame_gs);
 			}
@@ -141,7 +141,7 @@ namespace utils{
 			if(rgb_input){
 				frame_raw.convertTo(frame_rgb, frame_rgb.type());
 			} else{
-				cv::cvtColor(frame_raw, frame_rgb_uchar, CV_GRAY2BGR);
+				cv::cvtColor(frame_raw, frame_rgb_uchar, cv::COLOR_GRAY2BGR);
 				frame_rgb_uchar.convertTo(frame_rgb, frame_rgb.type());
 			}
 			apply(frame_rgb);
@@ -153,7 +153,7 @@ namespace utils{
 			if(rgb_input){
 				frame_raw.copyTo(frame_rgb);
 			} else{
-				cv::cvtColor(frame_raw, frame_rgb, CV_GRAY2BGR);
+				cv::cvtColor(frame_raw, frame_rgb, cv::COLOR_GRAY2BGR);
 			}
 			apply(frame_rgb);
 			if(resize_images){
@@ -238,7 +238,7 @@ namespace utils{
 		frame_in = frame_raw;
 		if(rgb_input){
 			frame_raw.convertTo(frame_rgb, frame_rgb.type());
-			cv::cvtColor(frame_rgb, frame_gs, CV_BGR2GRAY);
+			cv::cvtColor(frame_rgb, frame_gs, cv::COLOR_BGR2GRAY);
 		} else{
 			frame_raw.convertTo(frame_gs, frame_gs.type());
 		}

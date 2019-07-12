@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include "mtf/Utilities/graphUtils.h"
 #include "opencv2/highgui/highgui.hpp"
-#if CV_MAJOR_VERSION == 3
+#if CV_MAJOR_VERSION >= 3
 #include "opencv2/imgproc/imgproc.hpp"
 #endif
 
@@ -145,12 +145,12 @@ namespace mtf {
 			}
 
 			// Draw the values
-			CvPoint ptPrev = cv::Point(b, h - (b - y0));	// Start the lines at the 1st point.
+			cv::Point ptPrev = cv::Point(b, h - (b - y0));	// Start the lines at the 1st point.
 			for(int i = 0; i < nArrayLength; i++) {
 				int y = cvRound((arraySrc[i] - minV) * fscale);	// Get the values at a bigger scale
 				int x = cvRound(i * xscale);
-				CvPoint ptNew = cv::Point(b + x, h - (b + y));
-				line(imageGraph, ptPrev, ptNew, colorGraph, 1, CV_AA);	// Draw a line from the previous point to the new point
+				cv::Point ptNew = cv::Point(b + x, h - (b + y));
+				line(imageGraph, ptPrev, ptNew, colorGraph, 1, cv::LINE_AA);	// Draw a line from the previous point to the new point
 				ptPrev = ptNew;
 			}
 
@@ -230,12 +230,12 @@ namespace mtf {
 			}
 
 			// Draw the values
-			CvPoint ptPrev = cv::Point(b, h - (b - y0));	// Start the lines at the 1st point.
+			cv::Point ptPrev = cv::Point(b, h - (b - y0));	// Start the lines at the 1st point.
 			for(int i = 0; i < nArrayLength; i++) {
 				int y = cvRound((arraySrc[i] - minV) * fscale);	// Get the values at a bigger scale
 				int x = cvRound(i * xscale);
-				CvPoint ptNew = cv::Point(b + x, h - (b + y));
-				line(imageGraph, ptPrev, ptNew, colorGraph, 1, CV_AA);	// Draw a line from the previous point to the new point
+				cv::Point ptNew = cv::Point(b + x, h - (b + y));
+				line(imageGraph, ptPrev, ptNew, colorGraph, 1, cv::LINE_AA);	// Draw a line from the previous point to the new point
 				ptPrev = ptNew;
 			}
 
@@ -314,12 +314,12 @@ namespace mtf {
 			}
 
 			// Draw the values
-			CvPoint ptPrev = cv::Point(b, h - (b - y0));	// Start the lines at the 1st point.
+			cv::Point ptPrev = cv::Point(b, h - (b - y0));	// Start the lines at the 1st point.
 			for(int i = 0; i < nArrayLength; i++) {
 				int y = cvRound((arraySrc[i] - minV) * fscale);	// Get the values at a bigger scale
 				int x = cvRound(i * xscale);
-				CvPoint ptNew = cv::Point(b + x, h - (b + y));
-				line(imageGraph, ptPrev, ptNew, colorGraph, 1, CV_AA);	// Draw a line from the previous point to the new point
+				cv::Point ptNew = cv::Point(b + x, h - (b + y));
+				line(imageGraph, ptPrev, ptNew, colorGraph, 1, cv::LINE_AA);	// Draw a line from the previous point to the new point
 				ptPrev = ptNew;
 			}
 
@@ -382,7 +382,7 @@ namespace mtf {
 		void showImage(const cv::Mat img, int delay_ms, char *name) {
 			if(!name)
 				name = "Image";
-			cv::namedWindow(name, CV_WINDOW_AUTOSIZE);
+			cv::namedWindow(name, cv::WINDOW_AUTOSIZE);
 			imshow(name, img);
 			cv::waitKey(delay_ms);
 		}

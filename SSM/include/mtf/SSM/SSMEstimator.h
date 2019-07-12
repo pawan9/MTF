@@ -2,7 +2,7 @@
 #define MTF_SSM_ESTIMATOR_H
 
 #include "mtf/Macros/common.h"
-
+#include "opencv2/core/core_c.h"
 #include <boost/random/mersenne_twister.hpp>
 
 _MTF_BEGIN_NAMESPACE

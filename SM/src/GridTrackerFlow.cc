@@ -124,7 +124,7 @@ void GridTrackerFlow<AM, SSM >::setRegion(const cv::Mat& corners) {
 template <class AM, class SSM>
 void GridTrackerFlow<AM, SSM >::showPts(){
 	curr_img.convertTo(curr_img_disp, curr_img_disp.type());
-	cv::cvtColor(curr_img_disp, curr_img_disp, CV_GRAY2BGR);
+	cv::cvtColor(curr_img_disp, curr_img_disp, cv::COLOR_GRAY2BGR);
 	utils::drawRegion(curr_img_disp, cv_corners_mat, CV_RGB(0, 0, 255), 2);
 	for(unsigned int pt_id = 0; pt_id < n_pts; ++pt_id) {
 		cv::Scalar tracker_color;

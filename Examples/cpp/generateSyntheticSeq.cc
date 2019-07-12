@@ -203,7 +203,7 @@ int main(int argc, char * argv[]) {
 	if(syn_grayscale_img){
 		//! first frame in the synthetic sequence is the grayscale version of the original image 
 		out_img.create(input->getHeight(), input->getWidth(), CV_8UC1);
-		cv::cvtColor(input->getFrame(), out_img, CV_BGR2GRAY);
+		cv::cvtColor(input->getFrame(), out_img, cv::COLOR_BGR2GRAY);
 	} else{
 		//! original image is the first frame in the synthetic sequence
 		out_img = input->getFrame().clone();
@@ -228,7 +228,7 @@ int main(int argc, char * argv[]) {
 	if(syn_save_as_video){
 		std::string out_file = cv::format("%s.avi", out_dir.c_str());
 		printf("Saving output to MJPG video file: %s with %d fps\n", out_file.c_str(), syn_video_fps);
-		output.open(out_file, CV_FOURCC('M', 'J', 'P', 'G'), syn_video_fps, input->getFrame().size());
+		output.open(out_file, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), syn_video_fps, input->getFrame().size());
 		output.write(out_img);
 	} else{
 		//! for OpenCV imwrite function
@@ -237,7 +237,7 @@ int main(int argc, char * argv[]) {
 			printf("Output directory does not exist. Creating it...\n");
 			fs::create_directories(out_dir);
 		}
-		compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+		compression_params.push_back(cv::IMWRITE_JPEG_QUALITY);
 		compression_params.push_back(syn_jpg_quality);
 		cv::imwrite(cv::format("%s/frame%05d.jpg", out_dir.c_str(), 1), out_img, compression_params);
 	}

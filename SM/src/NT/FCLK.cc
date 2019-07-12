@@ -378,7 +378,7 @@ namespace nt{
 	void FCLK::drawGrid(){
 		am->getCurrImg().convertTo(curr_img_uchar, curr_img_uchar.type());
 		if(curr_img_uchar.type() == CV_8UC1){
-			cv::cvtColor(curr_img_uchar, curr_img_uchar, CV_GRAY2BGR);
+			cv::cvtColor(curr_img_uchar, curr_img_uchar, cv::COLOR_GRAY2BGR);
 		}		
 		utils::drawGrid(curr_img_uchar, ssm->getPts(), am->getResX(), am->getResY());
 		if(params.show_patch){

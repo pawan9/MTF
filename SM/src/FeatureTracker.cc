@@ -249,7 +249,7 @@ void ORB::create(cv::Ptr<cv::FeatureDetector> &ptr){
 		edge_threshold,
 		first_level,
 		WTA_K,
-		score_type,
+		static_cast<cv::ORB::ScoreType>(score_type),
 		patch_size,
 		fast_threshold
 		);
@@ -290,7 +290,7 @@ void FAST::create(cv::Ptr<cv::FeatureDetector> &ptr){
 		threshold, non_max_suppression));
 #else
 	ptr = cv::FastFeatureDetector::create(
-		threshold, non_max_suppression, type);
+		threshold, non_max_suppression, static_cast<cv::FastFeatureDetector::DetectorType>(type));
 #endif
 }
 #define MSER_DELTA 5
@@ -404,7 +404,7 @@ type(AGAST_TYPE){
 }
 void AGAST::create(cv::Ptr<cv::Feature2D> &ptr){
 	ptr = cv::AgastFeatureDetector::create(
-		threshold, non_max_suppression, type);
+		threshold, non_max_suppression, static_cast<cv::AgastFeatureDetector::DetectorType>(type));
 }
 
 #ifndef FEAT_DISABLE_NONFREE
@@ -1224,7 +1224,7 @@ void FeatureTracker<SSM>::setRegion(const cv::Mat& corners) {
 template<class SSM>
 void FeatureTracker<SSM>::showKeyPoints(){
 	curr_img_in.convertTo(curr_img_disp, curr_img_disp.type());
-	cv::cvtColor(curr_img_disp, curr_img_disp, CV_GRAY2BGR);
+	cv::cvtColor(curr_img_disp, curr_img_disp, cv::COLOR_GRAY2BGR);
 	utils::drawRegion(curr_img_disp, cv_corners_mat, CV_RGB(0, 0, 255), 2);
 	vector<cv::DMatch> matches;
 	for(int pt_id = 0; pt_id < n_good_key_pts; pt_id++) {
